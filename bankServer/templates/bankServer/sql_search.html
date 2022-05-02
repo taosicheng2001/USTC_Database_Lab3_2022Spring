@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<htmllang= "en"> 
+<head> 
+    <meta charset= "UTF-8"> 
+    <title> Title </title>
+    {%load static %} 
+</head> 
+<body style="background-image: url({% static '2.png' %})"> 
+
+    <h1 > 表格如下 </h1> 
+    <table style="border-collapse:collapse, color:#66ccff" border="2"> 
+        <tbody> 
+            {% if result_list %}
+                  
+                {% for row in result_list%}
+                    <tr> 
+                        {% for ele in row%}
+                            <td align="center" style="color:#66ccff"> <big> {{ ele }} </big> </td>
+                        {% endfor%}
+                    </tr>
+                {% endfor %}
+                
+            {% endif%}
+
+        </tbody> 
+    </table> 
+
+</body> 
+</html>

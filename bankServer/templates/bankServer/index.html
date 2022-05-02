@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<htmllang= "en"> 
+<head> 
+    <meta charset= "UTF-8"> 
+    <title> Bank Management </title> 
+    {%load static %}
+</head> 
+<body style="background-image: url({% static '2.png' %})"> 
+
+<h1 align="center" style="color:#39C5BB"> 银行管理系统 </h1>
+<h2 align="center" style="color:#39C5BB"> 陶思成 PB19050991 </h2> 
+
+<h3 style="color:#66ccff"> 当前数据库内存储情况如下 </h3>
+
+<table style="border-collapse:collapse, color:#66ccff" border="2"> 
+    <thead> 
+        <tr> 
+            <th align="center" style="color:#66ccff"> <a href="Client/detail" style="color:#39C5BB"> Client </a>  </th> 
+            <th align="center" style="color:#66ccff"> <a href="Accounts/detail" style="color:#39C5BB"> Accounts </a> </th> 
+            <th align="center" style="color:#66ccff"> <a href="CheckAccount/detail" style="color:#39C5BB"> Check_Account </a> </th> 
+            <th align="center" style="color:#66ccff"> <a href="StorageAccount/detail" style="color:#39C5BB"> Storage_Account </a> </th> 
+            <th align="center" style="color:#66ccff"> <a href="Loan/detail" style="color:#39C5BB"> Loan </a> </th> 
+            <th align="center" style="color:#66ccff"> <a href="OwnAccount/detail" style="color:#39C5BB"> Own_Account </a> </th> 
+            <th align="center" style="color:#66ccff"> <a href="OwnLoan/detail" style="color:#39C5BB"> Own_Loan </a> </th> 
+            <th align="center" style="color:#66ccff"> <a href="Pay/detail" style="color:#39C5BB"> Pay </a> </th> 
+        </tr> 
+    </thead> 
+    <tbody> 
+        {% if data_number_list %}
+            <tr> 
+                {% for ele in data_number_list%}
+                    <td align="center" style="color:#66ccff"> <big> {{ ele }} </big> </td> 
+                {% endfor%}
+            </tr> 
+        {% endif %}
+    </tbody> 
+</table> 
+
+<h3 style="color:#66ccff"> 下方可直接输入SQL语句进行查询(请勿对数据库进行修改)! </h3>
+
+<form  action="submit/" method="post">
+    {% csrf_token %}
+    <input type="text" name="sql_sentence"><br>
+    <input type="submit" name="comfirm" value="Run!">
+</form>
+
+</body> 
+</html>
