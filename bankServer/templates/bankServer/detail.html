@@ -6,24 +6,26 @@
     {%load static %} 
 </head> 
 <body style="background-image: url({% static '2.png' %})"> 
+    
+    <h1 style="color:#66ccff"> 表格如下 </h1> 
+    {% if table_content %}
+        <table style="border-collapse:collapse, color:#66ccff" border="2"> 
+            <tbody> 
+                {% if table_content %}
+                    
+                    {% for row in table_content%}
+                        <tr> 
+                            {% for ele in row%}
+                                <td align="center" style="color:#66ccff"> <big> {{ ele }} </big> </td>
+                            {% endfor%}
+                        </tr>
+                    {% endfor %}
+                    
+                {% endif%}
 
-    <h1 > 表格如下 </h1> 
-    <table style="border-collapse:collapse, color:#66ccff" border="2"> 
-        <tbody> 
-            {% if table_content %}
-                  
-                {% for row in table_content%}
-                    <tr> 
-                        {% for ele in row%}
-                            <td align="center" style="color:#66ccff"> <big> {{ ele }} </big> </td>
-                        {% endfor%}
-                    </tr>
-                {% endfor %}
-                
-            {% endif%}
-
-        </tbody> 
-    </table> 
+            </tbody> 
+        </table> 
+    {% endif %}
 
 </body> 
 </html>
