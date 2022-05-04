@@ -28,8 +28,8 @@ def index(request):
     }
     return render(request,'bankServer/index.html',context)
 
-def function_page(request):
-    return render(request,'bankServer/function_page.html')
+def loan_management(request):
+    return render(request,'bankServer/loan_management.html')
 
 def detail(request,table_name):
     try:
@@ -64,32 +64,71 @@ def submit(request):
         raise Http404("非法操作！")
     return HttpResponseRedirect(reverse('sql_search',args=(sql_string,)))
 
-def make_loan_submit(request):
+def loan_submit(request):
+
+    # Make_Loan 
     try:
-        request.POST.get("comfirm_make_loan")
-        client_id = request.POST.get("make_loan_client_id")
-        sb_name = request.POST.get("make_loan_sb_name")
-        loan_sum = request.POST.get("make_loan_loan_sum")
+        params = []
+
+        # try make_loan
+        make_loan = request.POST.get("make_loan")
+        if(make_loan == "创建贷款"):
+            client_id = request.POST.get("make_loan_client_id")
+            sb_name = request.POST.get("make_loan_sb_name")
+            loan_sum = request.POST.get("make_loan_loan_sum")
+            params.append(client_id)
+            params.append(sb_name)
+            params.append(loan_sum)
+            action = "Make_Loan"
+        else:
+            print("Not Make_Loan")
+
+        # try del_loan
+        del_loan = request.POST.get("del_loan")
+        if(del_loan == "删除贷款"):
+            loan_id = request.POST.get("del_loan_id")
+            params.append(loan_id)
+            action = "Del_Loan"
+        else:
+            print("Not Del_Loan")
+
+        # try pay
+        pay_loan = request.POST.get("pay_loan")
+        if(pay_loan == "支付贷款"):
+            sb_name = request.POST.get("pay_sb_name")
+            loan_id = request.POST.get("pay_loan_id")
+            pay_sum = request.POST.get("pay_pay_sum")
+            pay_date = request.POST.get("pay_pay_date")
+            params.append(sb_name)
+            params.append(loan_id)
+            params.append(pay_sum)
+            params.append(pay_date)
+            action = "Make_Payment"
+        else:
+            print("Not Make_Payment")
+
+        try:
+            with connection.cursor() as cursor:
+                cursor.callproc(action,params)
+                cursor.execute('Select * From State')
+                row = dictfetchall(cursor)
+        except NameError:
+            raise Http404("错误!")
+
+        content={
+            'action':action,
+            'state_value':row[0]
+        }
+
+        return render(request,'bankServer/loan_submit.html',content)
+        
+
     except KeyError:
         raise Http404("Error!")
 
-    print(client_id,sb_name,loan_sum)
+    
 
-    try:
-        with connection.cursor() as cursor:
-            cursor.callproc('Make_Loan',[client_id,sb_name,loan_sum])
-            cursor.execute('Select * From State')
-            row = dictfetchall(cursor)
-    except NameError:
-        raise Http404("错误!")
 
-    content={
-        'state_value':row[0]
-    }
-
-    print(content['state_value'])
-
-    return render(request,'bankServer/make_loan_submit.html',content)
 
 # 字典取
 def dictfetchall(cursor):

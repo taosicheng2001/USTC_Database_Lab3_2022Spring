@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<htmllang= "en"> 
+<head> 
+    <meta charset= "UTF-8"> 
+    <title> Loan Management </title> 
+    {%load static %}
+    <style>
+        h{
+            font-size:25px;
+            display:inline;
+        }
+        p{
+            display:inline;
+        }
+    </style>
+</head> 
+<body style="background-image: url({% static '2.png' %})">
+{% comment %} <body>  {% endcomment %}
+
+<h1 align="center" style="color:#66ccff"> 贷款管理功能页 </h3>
+<div style="color:#66ccff">
+    <ul>
+        <li>
+            <h> 贷款查询 </h><br>
+        </li>
+        <li>
+            <h> 贷款创建 </h>
+            <form  action="loan_submit/" method="post" >
+                {% csrf_token %}
+                <input type="text" size="25" placeholder="客户身份证" name="make_loan_client_id" >
+                <input type="text" size="25" placeholder="支行名称" name="make_loan_sb_name" >
+                <input type="number" size="25" placeholder="贷款总额" name="make_loan_loan_sum">
+                <input type="submit" name="make_loan" value="创建贷款">
+            </form>
+        </li>
+        <br>
+        <li>
+            <h> 贷款删除 </h>
+            <form  action="loan_submit/" method="post" >
+                {% csrf_token %}
+                <input type="text" size="25" placeholder="贷款号" name="del_loan_id" >
+                <input type="submit" name="del_loan" value="删除贷款">
+            </form>
+            <br>
+        </li>
+        <li>
+            <h> 贷款支付 </h>
+            <form  action="loan_submit/" method="post" >
+                {% csrf_token %}
+                <input type="text" size="25" placeholder="支行名称" name="pay_sb_name" >
+                <input type="text" size="25" placeholder="贷款号" name="pay_loan_id" >
+                <input type="number" size="25" placeholder="支付总额" name="pay_pay_sum" >
+                <input type="date" size="25" placeholder="支付时间" name="pay_pay_date" >
+                <input type="submit" name="pay_loan" value="支付贷款">
+            </form>
+        </li>
+    
+
+    
+    
+
+    </ul>
+</div>
+
+
+
+</body> 
+</html>
