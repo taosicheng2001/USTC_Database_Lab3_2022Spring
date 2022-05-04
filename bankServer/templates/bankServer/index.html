@@ -5,7 +5,8 @@
     <title> Bank Management </title> 
     {%load static %}
 </head> 
-<body style="background-image: url({% static '2.png' %})"> 
+<body style="background-image: url({% static '2.png' %})" > 
+{% comment %} <body> {% endcomment %}
 
 <h1 align="center" style="color:#39C5BB"> 银行管理系统 </h1>
 <h2 align="center" style="color:#39C5BB"> 陶思成 PB19050991 </h2> 
@@ -36,13 +37,15 @@
     </tbody> 
 </table> 
 
-<h3 style="color:#66ccff"> 下方可直接输入SQL语句进行查询(请勿对数据库进行修改)! </h3>
+<h3 style="color:#66ccff"> 下方可直接输入SQL语句进行查询(无法对数据库进行修改) </h3>
 
 <form  action="submit/" method="post">
     {% csrf_token %}
     <input type="text" name="sql_sentence"><br>
     <input type="submit" name="comfirm" value="Run!">
 </form>
+
+<h3 style="color:#66ccff"> <a href="function_page/" style="color:#39C5BB"> 进入详细功能页</a> </h3>
 
 </body> 
 </html>
