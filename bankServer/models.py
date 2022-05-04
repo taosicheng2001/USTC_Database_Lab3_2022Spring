@@ -56,7 +56,7 @@ class Connect(models.Model):
 
 
 class Department(models.Model):
-    department_id = models.CharField(primary_key=True, max_length=20)
+    department_id = models.CharField(primary_key=True, max_length=5)
     sb_name = models.ForeignKey('Sb', models.DO_NOTHING, db_column='sb_name')
     department_name = models.CharField(max_length=20)
     department_type = models.IntegerField()
@@ -129,6 +129,14 @@ class Sb(models.Model):
     class Meta:
         managed = False
         db_table = 'SB'
+
+
+class State(models.Model):
+    state = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'State'
 
 
 class StorageAccount(models.Model):

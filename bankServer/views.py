@@ -28,6 +28,9 @@ def index(request):
     }
     return render(request,'bankServer/index.html',context)
 
+def function_page(request):
+    return render(request,'bankServer/function_page.html')
+
 def detail(request,table_name):
     try:
         table = getattr(models,table_name)
@@ -60,6 +63,33 @@ def submit(request):
     if sql_string.split()[0].lower() != 'select' :
         raise Http404("非法操作！")
     return HttpResponseRedirect(reverse('sql_search',args=(sql_string,)))
+
+def make_loan_submit(request):
+    try:
+        request.POST.get("comfirm_make_loan")
+        client_id = request.POST.get("make_loan_client_id")
+        sb_name = request.POST.get("make_loan_sb_name")
+        loan_sum = request.POST.get("make_loan_loan_sum")
+    except KeyError:
+        raise Http404("Error!")
+
+    print(client_id,sb_name,loan_sum)
+
+    try:
+        with connection.cursor() as cursor:
+            cursor.callproc('Make_Loan',[client_id,sb_name,loan_sum])
+            cursor.execute('Select * From State')
+            row = dictfetchall(cursor)
+    except NameError:
+        raise Http404("错误!")
+
+    content={
+        'state_value':row[0]
+    }
+
+    print(content['state_value'])
+
+    return render(request,'bankServer/make_loan_submit.html',content)
 
 # 字典取
 def dictfetchall(cursor):

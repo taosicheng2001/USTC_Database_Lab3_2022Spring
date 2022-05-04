@@ -7,4 +7,6 @@ urlpatterns = [
     path('<str:table_name>/detail/',views.detail,name='detail'),
     path('<str:sql_string>/sql_search/',views.sql_search,name='sql_search'),
     path('submit/',views.submit,name='submit'),
+    path('function_page/make_loan_submit/',views.make_loan_submit,name="make_loan_submit"),
+    path('function_page/',views.function_page,name='function_page'),
 ]
