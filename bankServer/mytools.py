@@ -3,6 +3,9 @@ from decimal import Decimal
 def my_unwrap(table_dict):
     table_list = []
     
+    if not table_dict.exists():
+        return table_list
+
     # 列表名
     row_list = []
     for key in table_dict[0].keys():
