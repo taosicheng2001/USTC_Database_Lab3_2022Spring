@@ -14,10 +14,11 @@
 4. 添加Function 1个 → invalidAccount
 5. 完成账户管理界面
 
-2022.5.6 （待迁移）
+2022.5.6 
 1. 贷款中与金钱相关的属性数据类型相关改为Decimal
 2. 修改 loan Proc 中中“不存在指定贷款”时的返回值,同时Double->Decimal
 3. 移除 Function Double_Equal 
 4. 添加Trigger 1个 -> 不允许修改身份证号
-5. 添加Client Proc -> create_client | del_client
+5. 添加Client Proc 3个 -> create_client | del_client | modify_client
 6. 修改account Proc 中“不存在指定账户”时的返回值
+7. 完成客户管理界面
