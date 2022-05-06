@@ -14,7 +14,7 @@
 4. 添加Function 1个 → invalidAccount
 5. 完成账户管理界面
 
-2022.5.6 
+2022.5.6 （代迁移）
 1. 贷款中与金钱相关的属性数据类型相关改为Decimal
 2. 移除 Function Double_Equal 
 3. 添加Trigger 1个 -> 不允许修改身份证号
