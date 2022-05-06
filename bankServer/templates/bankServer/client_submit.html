@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<htmllang= "en"> 
+<head> 
+    <meta charset= "UTF-8"> 
+    <title> Client_Submit </title>
+    {%load static %} 
+</head> 
+<body style="background-image: url({% static '2.png' %})"> 
+{% comment %} <body> {% endcomment %}
+
+    {% if state_value %}
+        <h1  id="action" style="color:#66ccff"> Action: {{action}} </h1>
+        <h1  id="state" style="color:#66ccff"> Return State: {{state_value.state}} </h1>
+        <h1  id="promote" style="color:#66ccff"></h1>
+    {% endif %}
+
+    <script>
+        function myFunction()
+        {   
+            var u = document.getElementById("action").innerHTML.split(":");
+            var url = u.slice(-2)[1].split(" ")[1]
+            var s = document.getElementById("state").innerHTML;
+            var state = Number(s.substring(s.length-2))
+
+
+            if(url == "Create_Client")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Create_Client请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="还能跑这儿来?你输入了什么?";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！该客户是否已经存在?";
+                        break;
+                }
+            }
+
+            if(url == "Del_Client")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Del_Client请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="要求删除的客户未找到！";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                        break;
+                    case 3:
+                        document.getElementById("promote").innerHTML="该客户拥有贷款或账户！删除失败!";
+                        break;
+                }
+            }
+
+            if(url == "Modify_Client")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Modify_Client请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="该客户未找到！";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                        break;
+                }
+            }
+            
+        }
+    myFunction()
+    </script>
+
+
+
+</body> 
+</html>

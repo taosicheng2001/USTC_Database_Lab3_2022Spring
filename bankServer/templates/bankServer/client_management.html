@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<htmllang= "en"> 
+<head> 
+    <meta charset= "UTF-8"> 
+    <title> Client Management </title> 
+    {%load static %}
+    <style>
+        h{
+            font-size:25px;
+            display:inline;
+        }
+        p{
+            display:inline;
+        }
+    </style>
+</head> 
+<body style="background-image: url({% static '2.png' %})">
+{% comment %} <body>  {% endcomment %}
+
+<h1 align="center" style="color:#66ccff"> 客户管理功能页 </h3>
+<div style="color:#66ccff">
+    <ul>
+        <li>
+            <h> 客户查询 </h><br>
+        </li>
+        <li>
+            <h> 客户创建 </h>
+            <form  action="client_submit/" method="post" >
+                {% csrf_token %}
+                <input type="text" size="25" placeholder="客户身份证" name="create_client_client_id" >
+                <input type="text" size="25" placeholder="客户姓名" name="create_client_client_name" >
+                <input type="text" size="25" placeholder="客户电话" name="create_client_client_pn">
+                <input type="text" size="25" placeholder="客户地址" name="create_client_client_addr">
+                <input type="text" size="25" placeholder="联系人姓名" name="create_client_connector_name">
+                <input type="text" size="25" placeholder="联系人电话" name="create_client_connector_pn">   
+                <input type="text" size="25" placeholder="联系人Email" name="create_client_connector_email">  
+                <input type="text" size="25" placeholder="关系" name="create_client_relationship">                  
+                <input type="submit" name="create_client" value="创建客户">
+            </form>
+        </li>
+        <br>
+        <li>
+            <h> 删除客户 </h>
+            <form  action="client_submit/" method="post" >
+                {% csrf_token %}
+                <input type="text" size="25" placeholder="客户身份证" name="del_client_client_id" >          
+                <input type="submit" name="del_client" value="删除客户">
+            </form>
+        </li>
+        <br>
+        <li>
+            <h> 客户修改 </h>
+            <form  action="client_submit/" method="post" >
+                {% csrf_token %}
+                <input type="text" size="25" placeholder="客户身份证" name="modify_client_client_id" >
+                <input type="text" size="25" placeholder="客户姓名" name="modify_client_client_name" >
+                <input type="text" size="25" placeholder="客户电话" name="modify_client_client_pn">
+                <input type="text" size="25" placeholder="客户地址" name="modify_client_client_addr">
+                <input type="text" size="25" placeholder="联系人姓名" name="modify_client_connector_name">
+                <input type="text" size="25" placeholder="联系人电话" name="modify_client_connector_pn">   
+                <input type="text" size="25" placeholder="联系人Email" name="modify_client_connector_email">  
+                <input type="text" size="25" placeholder="关系" name="modify_client_relationship">                  
+                <input type="submit" name="modify_client" value="修改客户信息">
+            </form>
+        </li>
+        <br>
+
+
+    </ul>
+</div>
+
+
+
+</body> 
+</html>

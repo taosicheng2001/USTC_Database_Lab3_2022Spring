@@ -11,5 +11,7 @@ urlpatterns = [
     path('loan_management/',views.loan_management,name='loan_management'),
     path('account_management/account_submit/',views.account_submit,name="account_submit"),
     path('account_management/',views.account_management,name='account_management'),
+    path('client_management/client_submit/',views.client_submit,name="client_submit"),
+    path('client_management/',views.client_management,name='client_management'),
 
 ]

@@ -1,3 +1,4 @@
+from contextlib import nullcontext
 from decimal import Decimal
 from multiprocessing import Manager
 from urllib.request import HTTPRedirectHandler
@@ -5,6 +6,7 @@ from colorama import Cursor
 from django.shortcuts import render
 from django.template import loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
+from pymysql import NULL
 from bankServer import models
 from .models import Client
 from .mytools import my_unwrap
@@ -33,6 +35,9 @@ def loan_management(request):
 
 def account_management(request):
     return render(request,'bankServer/account_management.html')
+
+def client_management(request):
+    return render(request,'bankServer/client_management.html')
 
 def detail(request,table_name):
     try:
@@ -69,7 +74,7 @@ def submit(request):
 
 def loan_submit(request):
 
-    # Make_Loan 
+    # Loan Management
     try:
         params = []
 
@@ -132,7 +137,7 @@ def loan_submit(request):
     
 def account_submit(request):
 
-    # Make_Loan 
+    # Account Management
     try:
         params = []
 
@@ -240,6 +245,87 @@ def account_submit(request):
         }
 
         return render(request,'bankServer/account_submit.html',content)
+        
+
+    except KeyError:
+        raise Http404("Error!")
+
+def client_submit(request):
+
+    # Client Management
+    try:
+        params = []
+
+        # try create_client
+        create_client = request.POST.get("create_client")
+        if(create_client == "创建客户"):
+            client_id = request.POST.get("create_client_client_id")
+            client_name = request.POST.get("create_client_client_name")
+            client_pn = request.POST.get("create_client_client_pn")
+            client_addr = request.POST.get("create_client_client_addr")
+            connector_name = request.POST.get("create_client_connector_name")
+            connector_pn = request.POST.get("create_client_connector_pn")
+            connector_email = request.POST.get("create_client_connector_email")
+            relationship = request.POST.get("create_client_relationship")
+            params.append(client_id)
+            params.append(client_name)
+            params.append(client_pn)
+            params.append(client_addr)
+            params.append(connector_name)
+            params.append(connector_pn)
+            params.append(connector_email)
+            params.append(relationship)
+            action = "Create_Client"
+        else:
+            print("Not Create_Client")
+
+        # try del_client
+        del_client = request.POST.get("del_client")
+        if(del_client == "删除客户"):
+            client_id = request.POST.get("del_client_client_id")
+            print(client_id)
+            params.append(client_id)
+            action = "Del_Client"
+        else:
+            print("Not Del_Client")
+
+        # try modify client
+        modify_client = request.POST.get("modify_client")
+        if(modify_client == "修改客户信息"):
+            client_id = request.POST.get("modify_client_client_id")
+            client_name = request.POST.get("modify_client_client_name")
+            client_pn = request.POST.get("modify_client_client_pn")
+            client_addr = request.POST.get("modify_client_client_addr")
+            connector_name = request.POST.get("modify_client_connector_name")
+            connector_pn = request.POST.get("modify_client_connector_pn")
+            connector_email = request.POST.get("modify_client_connector_email")
+            relationship = request.POST.get("modify_client_relationship")
+            params.append(client_id)
+            params.append(client_name)
+            params.append(client_pn)
+            params.append(client_addr)
+            params.append(connector_name)
+            params.append(connector_pn)
+            params.append(connector_email)
+            params.append(relationship)
+            action = "Modify_Client"
+        else:
+            print("Not Modify_Client")
+
+        try:
+            with connection.cursor() as cursor:
+                cursor.callproc(action,params)
+                cursor.execute('Select * From State')
+                row = dictfetchall(cursor)
+        except NameError:
+            raise Http404("错误!")
+
+        content={
+            'action':action,
+            'state_value':row[0]
+        }
+
+        return render(request,'bankServer/client_submit.html',content)
         
 
     except KeyError:
