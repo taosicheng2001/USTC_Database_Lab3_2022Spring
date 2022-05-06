@@ -22,3 +22,5 @@
 5. 添加Client Proc 3个 -> create_client | del_client | modify_client
 6. 修改account Proc 中“不存在指定账户”时的返回值
 7. 完成客户管理界面
+8. 允许只做修改操作时只对部分值进行
+9. 修改html页面内容,加入提示框与必填选项
