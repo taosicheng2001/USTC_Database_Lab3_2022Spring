@@ -10,7 +10,7 @@ from django.db import models
 
 class Accounts(models.Model):
     account_id = models.CharField(primary_key=True, max_length=20)
-    balance = models.FloatField()
+    balance = models.DecimalField(max_digits=20, decimal_places=6)
     sb_name = models.ForeignKey('Sb', models.DO_NOTHING, db_column='sb_name')
     create_account_date = models.DateField()
 
@@ -21,8 +21,7 @@ class Accounts(models.Model):
 
 class CheckAccount(models.Model):
     account = models.OneToOneField(Accounts, models.DO_NOTHING, primary_key=True)
-    sb_name = models.CharField(max_length=20)
-    credit_lines = models.FloatField()
+    credit_line = models.DecimalField(max_digits=20, decimal_places=6)
 
     class Meta:
         managed = False
@@ -141,7 +140,6 @@ class State(models.Model):
 
 class StorageAccount(models.Model):
     account = models.OneToOneField(Accounts, models.DO_NOTHING, primary_key=True)
-    sb_name = models.CharField(max_length=20)
     benefit_rate = models.FloatField()
     money_type = models.CharField(max_length=10)
 

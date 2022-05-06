@@ -31,6 +31,9 @@ def index(request):
 def loan_management(request):
     return render(request,'bankServer/loan_management.html')
 
+def account_management(request):
+    return render(request,'bankServer/account_management.html')
+
 def detail(request,table_name):
     try:
         table = getattr(models,table_name)
@@ -127,7 +130,120 @@ def loan_submit(request):
         raise Http404("Error!")
 
     
+def account_submit(request):
 
+    # Make_Loan 
+    try:
+        params = []
+
+        # try create_storage_account
+        create_storage_account = request.POST.get("create_storage_account")
+        if(create_storage_account == "创建储蓄账户"):
+            client_id = request.POST.get("create_storage_account_client_id")
+            sb_name = request.POST.get("create_storage_account_sb_name")
+            balance = request.POST.get("create_storage_account_balance")
+            benefit_rate = request.POST.get("create_storage_account_benefit_rate")
+            money_type = request.POST.get("create_storage_account_money_type")
+            create_date = request.POST.get("create_storage_account_create_date")
+            params.append(client_id)
+            params.append(sb_name)
+            params.append(balance)
+            params.append(benefit_rate)
+            params.append(money_type)
+            params.append(create_date)
+            action = "Create_Storage_Account"
+        else:
+            print("Not Create_Storage_Account")
+
+        # try create_check_account
+        create_check_account = request.POST.get("create_check_account")
+        if(create_check_account == "创建支票账户"):
+            client_id = request.POST.get("create_check_account_client_id")
+            sb_name = request.POST.get("create_check_account_sb_name")
+            balance = request.POST.get("create_check_account_balance")
+            credit_line = request.POST.get("create_storage_account_credit_line")
+            create_date = request.POST.get("create_storage_account_create_date")
+            params.append(client_id)
+            params.append(sb_name)
+            params.append(balance)
+            params.append(credit_line)
+            params.append(create_date)
+            action = "Create_Check_Account"
+        else:
+            print("Not Create_Check_Account")
+
+        # try del_account
+        del_account = request.POST.get("del_account")
+        if(del_account == "删除账户"):
+            account_id = request.POST.get("del_account_account_id")
+            params.append(account_id)
+            action = "Del_Account"
+        else:
+            print("Not Del_Account")
+
+        # try modify_storage_account
+        modify_storage_account = request.POST.get("modify_storage_account")
+        if(modify_storage_account == "修改储蓄账户"):
+            client_id = request.POST.get("modify_storage_account_client_id")
+            account_id = request.POST.get("modify_storage_account_account_id")
+            balance = request.POST.get("modify_storage_account_balance")
+            benefit_rate = request.POST.get("modify_storage_account_benefit_rate")
+            money_type = request.POST.get("modify_storage_account_money_type")
+            params.append(client_id)
+            params.append(account_id)
+            params.append(balance)
+            params.append(benefit_rate)
+            params.append(money_type)
+            action = "Modify_Storage_Account"
+        else:
+            print("Not Modify_Storage_Account")
+
+        # try modify_check_account
+        modify_check_account = request.POST.get("modify_check_account")
+        if(modify_check_account == "修改支票账户"):
+            client_id = request.POST.get("modify_check_account_client_id")
+            account_id = request.POST.get("modify_check_account_account_id")
+            balance = request.POST.get("modify_check_account_balance")
+            credit_line = request.POST.get("modify_check_account_credit_line")
+            params.append(client_id)
+            params.append(account_id)
+            params.append(balance)
+            params.append(credit_line)
+            action = "Modify_Check_Account"
+        else:
+            print("Not Modify_Check_Account")
+
+        # try migration_account
+        migration_account = request.POST.get("migration_account")
+        if(migration_account == "迁移账户"):
+            account_id = request.POST.get("migration_account_account_id")
+            sb_name = request.POST.get("migration_account_sb_name")
+            params.append(account_id)
+            params.append(sb_name)
+            action = "Migration_Account"
+        else:
+            print("NOT Migration_Account")
+
+        try:
+            with connection.cursor() as cursor:
+                print(action)
+                print(params)
+                cursor.callproc(action,params)
+                cursor.execute('Select * From State')
+                row = dictfetchall(cursor)
+        except NameError:
+            raise Http404("错误!")
+
+        content={
+            'action':action,
+            'state_value':row[0]
+        }
+
+        return render(request,'bankServer/account_submit.html',content)
+        
+
+    except KeyError:
+        raise Http404("Error!")
 
 
 # 字典取
