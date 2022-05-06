@@ -1,0 +1,19 @@
+2022.5.3 之前
+1. models 需要用python写  → 用inscpesb反向导入
+2. 存储过程没法带回状态值 → 用函数去写?(不行，无法使用COMMIT)→增加一个表State，里面保存运行状态
+3. 动态返回结果 → 增加js以及相关必要组件
+
+2022.5.4
+1. 完成贷款管理界面
+
+
+2022.5.5
+1. 移除Storage_Account和Check_Account的属性 sb_name 减少冗余
+2. 添加Trigger 3个 → 不允许修改账户号
+3. 添加Account Proc 4个 → create_storage  | create_check | del_account | migration | modify STR CHK
+4. 添加Function 1个 → invalidAccount
+5. 完成账户管理界面
+
+2022.5.6 
+1. 贷款中与金钱相关的属性数据类型相关改为Decimal
+2. 移除 Function Double_Equal 
