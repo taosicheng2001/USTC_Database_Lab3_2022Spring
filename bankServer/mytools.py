@@ -3,8 +3,12 @@ from decimal import Decimal
 def my_unwrap(table_dict):
     table_list = []
     
-    if not table_dict.exists():
-        return table_list
+    try:
+        if not table_dict.exists():
+            return table_list
+    except: 
+        if not table_dict:
+            return table_list
 
     # 列表名
     row_list = []
@@ -22,3 +26,9 @@ def my_unwrap(table_dict):
                 row_list.append(value)
         table_list.append(row_list)
     return table_list
+
+def nullcheck(item):
+    if item is None or len(item) == 0:
+        return None
+    else:
+        return item

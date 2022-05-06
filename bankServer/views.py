@@ -1,15 +1,15 @@
-from contextlib import nullcontext
 from decimal import Decimal
 from multiprocessing import Manager
 from urllib.request import HTTPRedirectHandler
 from colorama import Cursor
+from django.forms import DecimalField
 from django.shortcuts import render
 from django.template import loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from pymysql import NULL
 from bankServer import models
 from .models import Client
-from .mytools import my_unwrap
+from .mytools import my_unwrap,nullcheck
 from django.db import connection
 from django.urls import reverse
 
@@ -134,7 +134,6 @@ def loan_submit(request):
     except KeyError:
         raise Http404("Error!")
 
-    
 def account_submit(request):
 
     # Account Management
@@ -194,11 +193,11 @@ def account_submit(request):
             balance = request.POST.get("modify_storage_account_balance")
             benefit_rate = request.POST.get("modify_storage_account_benefit_rate")
             money_type = request.POST.get("modify_storage_account_money_type")
-            params.append(client_id)
-            params.append(account_id)
-            params.append(balance)
-            params.append(benefit_rate)
-            params.append(money_type)
+            params.append(nullcheck(client_id))
+            params.append(nullcheck(account_id))
+            params.append(nullcheck(balance))
+            params.append(nullcheck(benefit_rate))
+            params.append(nullcheck(money_type))
             action = "Modify_Storage_Account"
         else:
             print("Not Modify_Storage_Account")
@@ -210,10 +209,10 @@ def account_submit(request):
             account_id = request.POST.get("modify_check_account_account_id")
             balance = request.POST.get("modify_check_account_balance")
             credit_line = request.POST.get("modify_check_account_credit_line")
-            params.append(client_id)
-            params.append(account_id)
-            params.append(balance)
-            params.append(credit_line)
+            params.append(nullcheck(client_id))
+            params.append(nullcheck(account_id))
+            params.append(nullcheck(balance))
+            params.append(nullcheck(credit_line))
             action = "Modify_Check_Account"
         else:
             print("Not Modify_Check_Account")
@@ -300,14 +299,14 @@ def client_submit(request):
             connector_pn = request.POST.get("modify_client_connector_pn")
             connector_email = request.POST.get("modify_client_connector_email")
             relationship = request.POST.get("modify_client_relationship")
-            params.append(client_id)
-            params.append(client_name)
-            params.append(client_pn)
-            params.append(client_addr)
-            params.append(connector_name)
-            params.append(connector_pn)
-            params.append(connector_email)
-            params.append(relationship)
+            params.append(nullcheck(client_id))
+            params.append(nullcheck(client_name))
+            params.append(nullcheck(client_pn))
+            params.append(nullcheck(client_addr))
+            params.append(nullcheck(connector_name))
+            params.append(nullcheck(connector_pn))
+            params.append(nullcheck(connector_email))
+            params.append(nullcheck(relationship))
             action = "Modify_Client"
         else:
             print("Not Modify_Client")
