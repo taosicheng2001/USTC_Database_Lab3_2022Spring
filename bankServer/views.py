@@ -28,6 +28,9 @@ def index(request):
     data_number_list.append(models.OwnAccount.objects.count) # Own_Account
     data_number_list.append(models.OwnLoan.objects.count) # Own_Loan
     data_number_list.append(models.Pay.objects.count) # Pay
+    data_number_list.append(models.Sb.objects.count) # SB
+    data_number_list.append(models.Worker.objects.count) # Worker
+    data_number_list.append(models.Connect.objects.count) # Connect
     context = {
         'data_number_list':data_number_list,
     }
@@ -317,6 +320,35 @@ def client_submit(request):
         else:
             print("Not Modify_Client")
 
+        # try modify_connection
+        modify_connection = request.POST.get("modify_connection")
+        if (modify_connection == "创建或修改联系"):
+            client_id = request.POST.get("modify_connection_client_id")
+            worker_id = request.POST.get("modify_connection_worker_id")
+            connect_type = request.POST.get("modify_connection_connect_type")
+            params.append(client_id)
+            params.append(worker_id)
+            if connect_type == "贷款负责人":
+                params.append("贷款负责人")
+            else:
+                params.append("银行帐户负责人")
+
+            action = "Modify_Connection"
+        else:
+            print("Not Modify_Connection")
+
+        # try del_connection
+        del_connection = request.POST.get("del_connection")
+        if (del_connection == "删除联系"):
+            client_id = request.POST.get("del_connection_client_id")
+            worker_id = request.POST.get("del_connection_worker_id")
+            params.append(client_id)
+            params.append(worker_id)
+            action = "Del_Connection"
+        else:
+            print("Not Del_Connection")
+
+
         try:
             with connection.cursor() as cursor:
                 cursor.callproc(action,params)
@@ -482,6 +514,8 @@ def statistic_submit(request):
             'table_content': my_unwrap(table_content)
         }
 
+        print(content)
+
         return render(request,'bankServer/statistic_submit.html',content)
         
 
@@ -491,6 +525,9 @@ def statistic_submit(request):
 
 # 字典取
 def dictfetchall(cursor):
+    if cursor.description is None:
+        return None
+    
     columns = [col[0] for col in cursor.description]
     return [
         dict(zip(columns,row))

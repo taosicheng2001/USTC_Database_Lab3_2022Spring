@@ -13,12 +13,91 @@
     <h1  id="promote" style="color:#66ccff"></h1>
     {% endif %}
 
-    <h1 > 表格如下 </h1> 
+    <script>
+        function myFunction()
+        {   
+            var u = document.getElementById("action").innerHTML.split(":");
+            var url = u.slice(-2)[1].split(" ")[1]
+            var s = document.getElementById("state").innerHTML;
+            var state = Number(s.substring(s.length-2))
+
+
+            if(url == "Statistic_Loan")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Statistic_Loan请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="指定支行未找到，请检查！";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                        break;
+                }
+            }
+
+            if(url == "Statistic_Storage")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Statistic_Storage请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="指定支行未找到！请检查";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                        break;
+                }
+            }
+
+            if(url == "Statistic_Storage_All_Year")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Statistic_Storage_All_Year请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="指定支行未找到！请检查";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                        break;
+                }
+            }
+
+            if(url == "Statistic_Loan_All_Year")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Statistic_Loan_All_Year请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="指定支行未找到！请检查";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                        break;
+                }
+            }
+
+
+            
+        }
+        myFunction()
+    </script>
+
+    <h1 style="color:#66ccff"> 表格如下 </h1> 
     <table style="border-collapse:collapse, color:#66ccff" border="2"> 
         <tbody> 
-            {% if result_list %}
+            {% if table_content %}
                   
-                {% for row in result_list%}
+                {% for row in table_content%}
                     <tr> 
                         {% for ele in row%}
                             <td align="center" style="color:#66ccff"> <big> {{ ele }} </big> </td>

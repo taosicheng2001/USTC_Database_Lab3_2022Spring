@@ -68,12 +68,41 @@
             </form>
         </li>
         <br>
+        <li>
+            <h> 客户联系管理 </h>
+            <form  action="client_submit/" method="post" >
+                {% csrf_token %}
+                指定客户<input type="text" size="25" placeholder="客户身份证" name="modify_connection_client_id" required="required"><br>
+                指定工作人员<input type="text" size="25" placeholder="工作人员身份证" name="modify_connection_worker_id" required="required"><br>
+                指定关系
+                <input type="radio" name="modify_connection_connect_type" value="贷款负责人" checked='checked'> 贷款负责人
+                <input type="radio" name="modify_connection_connect_type"  value="银行帐户负责人"> 银行帐户负责人 <br>
+                <input type="submit" name="modify_connection" value="创建或修改联系">
+            </form>
+        </li>
+        <br>
+        <li>
+            <h> 客户联系删除 </h>
+            <form  action="client_submit/" method="post" >
+                {% csrf_token %}
+                指定客户<input type="text" size="25" placeholder="客户身份证" name="del_connection_client_id" required="required"><br>
+                指定工作人员<input type="text" size="25" placeholder="工作人员身份证" name="del_connection_worker_id" required="required"><br>
+                <input type="submit" name="del_connection" value="删除联系">
+            </form>
+        </li>
+        <br>
 
 
     </ul>
 </div>
 
-
+<ul>
+    <li><h4 style="color:#66ccff"> <a href="/bankServer/" style="color:#39C5BB"> 主页面 </a> </h4></l1>
+    <li><h4 style="color:#66ccff"> <a href="/bankServer/loan_management/" style="color:#39C5BB"> 贷款管理 </a> </h4></l1>
+    <li><h4 style="color:#66ccff"> <a href="/bankServer/account_management/" style="color:#39C5BB"> 账户管理 </a> </h4></l1> 
+    <li><h4 style="color:#66ccff"> <a href="/bankServer/client_management/" style="color:#39C5BB"> 客户管理 </a> </h4></l1> 
+    <li><h4 style="color:#66ccff"> <a href="/bankServer/statistic_management/" style="color:#39C5BB"> 业务统计 </a> </h4></l1> 
+</ul>
 
 </body> 
 </html>

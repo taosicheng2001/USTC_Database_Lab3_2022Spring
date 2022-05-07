@@ -74,6 +74,30 @@
                 }
             }
             
+            if(url == "Modify_Connection"){
+                case 0:
+                    document.getElementById("promote").innerHTML="您的Modify_Connection请求已成功执行!";
+                break;
+                case 1:
+                    document.getElementById("promote").innerHTML="该客户或工作人员未找到！";
+                    break;                
+                case 2:
+                    document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                    break;
+            }
+
+            if(url == "Del_Connection"){
+                case 0:
+                    document.getElementById("promote").innerHTML="您的Modify_Connection请求已成功执行!";
+                break;
+                case 1:
+                    document.getElementById("promote").innerHTML="该客户或工作人员未找到！";
+                    break;                
+                case 2:
+                    document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                    break;
+            }
+            
         }
     myFunction()
     </script>
