@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<htmllang= "en"> 
+<head> 
+    <meta charset= "UTF-8"> 
+    <title> Statistic Management </title> 
+    {%load static %}
+    <style>
+        h{
+            font-size:25px;
+            display:inline;
+        }
+        p{
+            display:inline;
+        }
+    </style>
+</head> 
+<body style="background-image: url({% static '2.png' %})">
+{% comment %} <body>  {% endcomment %}
+
+<h1 align="center" style="color:#66ccff"> 业务统计功能页 </h3>
+<div style="color:#66ccff">
+    <ul>
+        <li>
+            <h> 全局储蓄业务统计 </h>
+            <form  action="statistic_submit/" method="post" >
+                {% csrf_token %}                
+                <input type="submit" name="statistic_storage_all_year" value="全局储蓄业务统计">
+            </form>
+        </li>
+        <br>
+        <li>
+            <h> 全局贷款业务统计 </h>
+            <form  action="statistic_submit/" method="post" >
+                {% csrf_token %}       
+                <input type="submit" name="statistic_loan_all_year" value="全局贷款业务统计">
+            </form>
+        </li>
+        <br>
+        <li>
+            <h> 详细储蓄业务统计 </h>
+            <form  action="statistic_submit/" method="post" >
+                {% csrf_token %}
+                是否指定支行
+                <input type="radio" name="statistic_storage_sb" value="Yes" checked='checked'> 是
+                <input type="radio" name="statistic_storage_sb"  value="No"> 否 
+                <input type="text" size="25" placeholder="支行名称" name="statistic_storage_sb_name"><br>
+                指定年份 <input type="text" size="25" placeholder="" name="statistic_storage_year" required="required">
+                指定月份 <input type="text" size="25" placeholder="" name="statistic_storage_month" >
+                指定季度 <input type="text" size="25" placeholder="1~4" name="statistic_storage_quarter"><br>
+
+                划分方式
+                <input type="radio" name="statistic_storage_cut_type"  value="Year" checked='checked'> 按年
+                <input type="radio" name="statistic_storage_cut_type"  value="Month"> 按月
+                <input type="radio" name="statistic_storage_cut_type"  value="Quarter"> 按季度
+                <br>
+                <input type="submit" name="statistic_storage" value="详细储蓄业务统计">
+            </form>
+        </li>
+        <br>
+        <li>
+            <h> 详细贷款业务统计 </h>
+            <form  action="statistic_submit/" method="post" >
+                {% csrf_token %}
+                是否指定支行
+                <input type="radio" name="statistic_loan_sb" value="Yes" checked='checked'> 是
+                <input type="radio" name="statistic_loan_sb"  value="No"> 否 
+                <input type="text" size="25" placeholder="支行名称" name="statistic_loan_sb_name"><br>
+                指定年份 <input type="text" size="25" placeholder="" name="statistic_loan_year" required="required">
+                指定月份 <input type="text" size="25" placeholder="" name="statistic_loan_month" >
+                指定季度 <input type="text" size="25" placeholder="1~4" name="statistic_loan_quarter"><br>
+
+                划分方式
+                <input type="radio" name="statistic_loan_cut_type"  value="Year" checked='checked'> 按年
+                <input type="radio" name="statistic_loan_cut_type"  value="Month"> 按月
+                <input type="radio" name="statistic_loan_cut_type"  value="Quarter"> 按季度
+                <br>
+                <input type="submit" name="statistic_loan" value="详细贷款业务统计">
+            </form>
+        </li>
+        <br>
+
+    </ul>
+</div>
+
+</body> 
+</html>

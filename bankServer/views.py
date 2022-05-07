@@ -1,5 +1,7 @@
+from cgi import parse_multipart
 from decimal import Decimal
 from multiprocessing import Manager
+from traceback import print_tb
 from urllib.request import HTTPRedirectHandler
 from colorama import Cursor
 from django.forms import DecimalField
@@ -7,6 +9,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from pymysql import NULL
+from datetime import date
 from bankServer import models
 from .models import Client
 from .mytools import my_unwrap,nullcheck
@@ -38,6 +41,9 @@ def account_management(request):
 
 def client_management(request):
     return render(request,'bankServer/client_management.html')
+
+def statistic_management(request):
+    return render(request,'bankServer/statistic_management.html')
 
 def detail(request,table_name):
     try:
@@ -325,6 +331,158 @@ def client_submit(request):
         }
 
         return render(request,'bankServer/client_submit.html',content)
+        
+
+    except KeyError:
+        raise Http404("Error!")
+
+def statistic_submit(request):
+
+    # Statistic Management
+    try:
+        params = []
+
+        # try statistic storage all year
+        statistic_storage_all_year = request.POST.get("statistic_storage_all_year")
+        if(statistic_storage_all_year == "全局储蓄业务统计"):
+            action = "Statistic_Storage_All_Year"
+        else:
+            print("Not Statistic_Storage_All_Year")
+
+        # try statistic loan all year
+        statistic_loan_all_year = request.POST.get("statistic_loan_all_year")
+        if(statistic_loan_all_year == "全局贷款业务统计"):
+            action = "Statistic_Loan_All_Year"
+        else:
+            print("Not Statistic_Loan_All_Year")
+
+        # try statistic_storage
+        statistic_storage = request.POST.get("statistic_storage")
+        if(statistic_storage == "详细储蓄业务统计"):
+            whether_sb = request.POST.get("statistic_storage_sb")
+            sb_name = request.POST.get("statistic_storage_sb_name")
+            cut_type = request.POST.get("statistic_storage_cut_type")
+            year = request.POST.get("statistic_storage_year")
+            month = request.POST.get("statistic_storage_month")
+            quarter = request.POST.get("statistic_storage_quarter")
+            
+            # time type
+            if len(month) == 0 and len(quarter) == 0:
+                params.append(0)
+            else:
+                if len(month) == 0:
+                    params.append(2)
+                else:
+                    params.append(1)
+            
+            # cut type
+            if cut_type == "Year":
+                params.append(0)
+            else:
+                if cut_type == "Month":
+                    params.append(1)
+                else:
+                    params.append(2)
+
+            # time
+            year = int(year)
+            if len(month) == 0:
+                if len(quarter) == 0:
+                    d = date(year,1,1)
+                else:
+                    if quarter == "1":
+                        d = date(year,1,1)
+                    if quarter == "2":
+                        d = date(year,4,1)
+                    if quarter == "3":
+                        d = date(year,7,1)
+                    if quarter == "4":
+                        d = date(year,10,1)                
+            else:
+                d = date(year,int(month),1)
+            params.append(d)
+
+            if whether_sb == "Yes":
+                params.append(sb_name)
+            else:
+                params.append(None)     
+            action = "Statistic_Storage"
+        else:
+            print("Not Statistic_Storage")
+
+        # try statistic_loan
+        statistic_loan = request.POST.get("statistic_loan")
+        if(statistic_loan == "详细贷款业务统计"):
+            whether_sb = request.POST.get("statistic_loan_sb")
+            sb_name = request.POST.get("statistic_loan_sb_name")
+            cut_type = request.POST.get("statistic_loan_cut_type")
+            year = request.POST.get("statistic_loan_year")
+            month = request.POST.get("statistic_loan_month")
+            quarter = request.POST.get("statistic_loan_quarter")
+            
+            # time type
+            if len(month) == 0 and len(quarter) == 0:
+                params.append(0)
+            else:
+                if len(month) == 0:
+                    params.append(2)
+                else:
+                    params.append(1)
+            
+            # cut type
+            if cut_type == "Year":
+                params.append(0)
+            else:
+                if cut_type == "Month":
+                    params.append(1)
+                else:
+                    params.append(2)
+
+            # time
+            year = int(year)
+            if len(month) == 0:
+                if len(quarter) == 0:
+                    d = date(year,1,1)
+                else:
+                    if quarter == "1":
+                        d = date(year,1,1)
+                    if quarter == "2":
+                        d = date(year,4,1)
+                    if quarter == "3":
+                        d = date(year,7,1)
+                    if quarter == "4":
+                        d = date(year,10,1)                
+            else:
+                d = date(year,int(month),1)
+            params.append(d)
+
+            if whether_sb == "Yes":
+                params.append(sb_name)
+            else:
+                params.append(None)     
+            action = "Statistic_Loan"
+        else:
+            print("Not Statistic_Loan")
+
+        print(params)
+
+        try:
+            with connection.cursor() as cursor:
+                cursor.callproc(action,params)
+                table_content = dictfetchall(cursor)
+                cursor.execute('Select * From State')
+                row = dictfetchall(cursor)
+        except NameError:
+            raise Http404("错误!")
+
+
+        content={
+            'action':action,
+            'state_value':row[0],
+            'table_content': my_unwrap(table_content)
+        }
+
+        return render(request,'bankServer/statistic_submit.html',content)
         
 
     except KeyError:

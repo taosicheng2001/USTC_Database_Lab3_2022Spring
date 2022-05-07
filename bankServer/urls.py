@@ -13,5 +13,7 @@ urlpatterns = [
     path('account_management/',views.account_management,name='account_management'),
     path('client_management/client_submit/',views.client_submit,name="client_submit"),
     path('client_management/',views.client_management,name='client_management'),
+    path('statistic_management/statistic_submit/',views.statistic_submit,name="statistic_submit"),
+    path('statistic_management/',views.statistic_management,name='statistic_management'),
 
 ]

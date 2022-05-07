@@ -24,3 +24,9 @@
 7. 完成客户管理界面
 8. 允许只做修改操作时只对部分值进行
 9. 修改html页面内容,加入提示框与必填选项
+
+2022.5.7
+1. 添加 Statistic Proc 4 个 Statistic_Storage | Statistic_Storage_All_Year | Statistic_Loan | Statistic_Loan_All_Year
+2. 完成业务统计界面
+3. 添加 Client Proc 2个 Modify_Connection | Del_Connection
+4. 添加 Clear All Proc
