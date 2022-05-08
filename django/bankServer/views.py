@@ -87,6 +87,18 @@ def loan_submit(request):
     try:
         params = []
 
+        # try search_loan
+        search_loan = request.POST.get("search_loan")
+        if(search_loan == "查询"):
+            loan_id = request.POST.get("search_loan_loan_id")
+            search_type = request.POST.get("search_loan_information")
+            if search_type is None or search_type == "贷款信息":
+                sql_string = "Select * from  Loan Where Loan.loan_id="+loan_id
+            else:
+                sql_string = "Select * from  Loan,Pay Where Loan.loan_id = Pay.loan_id and Loan.loan_id="+loan_id
+            return HttpResponseRedirect(reverse('sql_search',args=(sql_string,)))
+
+
         # try make_loan
         make_loan = request.POST.get("make_loan")
         if(make_loan == "创建贷款"):
@@ -148,6 +160,19 @@ def account_submit(request):
     # Account Management
     try:
         params = []
+
+        # try search account
+        search_account = request.POST.get("search_account")
+        if(search_account == "查询"):
+            account_id = request.POST.get("search_account_account_id")
+            search_type = request.POST.get("search_account_information")
+            if search_type is None or search_type == "储蓄账户":
+                sql_string = "Select * from  Own_Account,Accounts,Storage_Account Where Own_Account.account_id = Accounts.account_id and Accounts.account_id = Storage_Account.account_id and Accounts.account_id="+account_id
+            else:
+                sql_string = "Select * from  Own_Account,Accounts,Check_Account Where Own_Account.account_id = Accounts.account_id and Accounts.account_id = Check_Account.account_id and Accounts.account_id="+account_id
+            return HttpResponseRedirect(reverse('sql_search',args=(sql_string,)))
+
+
 
         # try create_storage_account
         create_storage_account = request.POST.get("create_storage_account")
@@ -347,6 +372,23 @@ def client_submit(request):
             action = "Del_Connection"
         else:
             print("Not Del_Connection")
+
+        # try search client
+        search_client = request.POST.get("search_client")
+        if(search_client == "查询"):
+            client_id = request.POST.get("search_client_client_id")
+            search_type = request.POST.get("search_client_information")
+            if search_type is None or search_type == "客户个人信息":
+                sql_string = "Select * from Client Where Client.client_id=" + client_id
+            else:
+                if search_type == "联系关系信息":
+                    sql_string = "Select connect_type,department_id,worker_name,worker_pn,worker_addr from Connect,Worker Where Connect.worker_id = Worker.worker_id and Connect.client_id="+client_id
+                if search_type == "客户账户信息":
+                    sql_string = "Select * from Accounts,Own_Account Where Own_Account.account_id = Accounts.account_id and Own_Account.client_id="+ client_id
+                if search_type == "客户贷款信息":
+                    sql_string = "Select Loan.loan_id,sb_name,loan_sum,loan_state from Loan,Own_Loan Where Own_Loan.loan_id = Loan.loan_id and Own_Loan.client_id = " + client_id
+
+            return HttpResponseRedirect(reverse('sql_search',args=(sql_string,)))
 
 
         try:

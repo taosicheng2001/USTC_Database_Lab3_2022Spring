@@ -22,6 +22,17 @@
     <ul>
         <li>
             <h> 贷款查询 </h><br>
+            <form  action="loan_submit/" method="post" >
+                {% csrf_token %}
+                输入需要查询的贷款
+                <input type="text" size="25" placeholder="贷款号" name="search_loan_loan_id" required="required"><br>
+                
+                选择账户种类
+                <input type="radio" size="25" placeholder="贷款信息" name="search_loan_information" value="贷款信息"> 贷款信息
+                <input type="radio" size="25" placeholder="付款信息" name="search_loan_information"value="付款信息"> 付款信息
+                <br>  
+                <input type="submit" name="search_loan" value="查询">
+            </form>
         </li>
         <br>
         <li>

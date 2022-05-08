@@ -22,6 +22,17 @@
     <ul>
         <li>
             <h> 账户查询 </h><br>
+            <form  action="account_submit/" method="post" >
+                {% csrf_token %}
+                输入需要查询的账户
+                <input type="text" size="25" placeholder="账户号" name="search_account_account_id" required="required"><br>
+                
+                选择账户种类
+                <input type="radio" size="25" placeholder="储蓄账户" name="search_account_information" value="储蓄账户"> 储蓄账户
+                <input type="radio" size="25" placeholder="支票账户" name="search_account_information"value="支票账户"> 支票账户
+                <br>  
+                <input type="submit" name="search_account" value="查询">
+            </form>
         </li>
         <br>
         <li>

@@ -21,7 +21,20 @@
 <div style="color:#66ccff">
     <ul>
         <li>
-            <h> 客户查询 </h><br>
+            <h> 客户查询 </h>
+            <form  action="client_submit/" method="post" >
+                {% csrf_token %}
+                输入需要查询的客户
+                <input type="text" size="25" placeholder="客户身份证" name="search_client_client_id" required="required"><br>
+                
+                选择需要的查询方式
+                <input type="radio" size="25" placeholder="客户个人信息" name="search_client_information" value="客户个人信息"> 客户个人信息
+                <input type="radio" size="25" placeholder="联系关系信息" name="search_client_information"value="联系关系信息"> 联系关系信息
+                <input type="radio" size="25" placeholder="客户账户信息" name="search_client_information"value="客户账户信息"> 客户账户信息
+                <input type="radio" size="25" placeholder="客户贷款信息" name="search_client_information"value="客户贷款信息"> 客户贷款信息
+                <br>  
+                <input type="submit" name="search_client" value="查询">
+            </form>
         </li>
         <br>
         <li>
@@ -75,8 +88,8 @@
                 指定客户<input type="text" size="25" placeholder="客户身份证" name="modify_connection_client_id" required="required"><br>
                 指定工作人员<input type="text" size="25" placeholder="工作人员身份证" name="modify_connection_worker_id" required="required"><br>
                 指定关系
-                <input type="radio" name="modify_connection_connect_type" value="贷款负责人" checked='checked'> 贷款负责人
-                <input type="radio" name="modify_connection_connect_type"  value="银行帐户负责人"> 银行帐户负责人 <br>
+                <input type="checkbox" name="modify_connection_connect_type" value="贷款负责人" checked='checked'> 贷款负责人
+                <input type="checkbox" name="modify_connection_connect_type"  value="银行帐户负责人"> 银行帐户负责人 <br>
                 <input type="submit" name="modify_connection" value="创建或修改联系">
             </form>
         </li>
