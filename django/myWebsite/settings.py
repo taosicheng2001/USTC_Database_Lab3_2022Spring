@@ -123,7 +123,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'/root/myWebsite/bankServer/imgs/')
+    os.path.join(BASE_DIR,'/root/myWebsite/django/bankServer/imgs/')
 ]
 
 # Default primary key field type
