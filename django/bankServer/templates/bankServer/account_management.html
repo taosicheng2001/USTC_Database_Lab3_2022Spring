@@ -34,7 +34,7 @@
                 <input type="text" size="25" placeholder="账户余额" name="create_storage_account_balance" required="required">
                 <input type="text" size="25" placeholder="利率" name="create_storage_account_benefit_rate" required="required">
                 <input type="text" size="25" placeholder="货币类型" name="create_storage_account_money_type" required="required">   
-                <input type="date" size="25" placeholder="开户时间" name="create_storage_account_create_date" required="required">             
+                <input type="date" size="25" placeholder="开户时间" name="create_storage_account_create_date" required="required"><br>           
                 <input type="submit" name="create_storage_account" value="创建储蓄账户">
             </form>
         </li>
@@ -48,7 +48,7 @@
                 <input type="text" size="25" placeholder="支行名称" name="create_check_account_sb_name" required="required">
                 <input type="text" size="25" placeholder="账户余额" name="create_check_account_balance" required="required">
                 <input type="text" size="25" placeholder="透支额度" name="create_storage_account_credit_line" required="required">  
-                <input type="date" size="25" placeholder="开户时间" name="create_storage_account_create_date" required="required">             
+                <input type="date" size="25" placeholder="开户时间" name="create_storage_account_create_date" required="required"><br>            
                 <input type="submit" name="create_check_account" value="创建支票账户">
             </form>
         </li>
@@ -58,7 +58,7 @@
             <form  action="account_submit/" method="post" >
                 {% csrf_token %}
                 指定被删除的账户<br>
-                <input type="text" size="25" placeholder="账号" name="del_account_account_id" required="required">
+                <input type="text" size="25" placeholder="账号" name="del_account_account_id" required="required"><br>
                 <input type="submit" name="del_account" value="删除账户">
             </form>
         </li>
@@ -73,7 +73,7 @@
                 输入修改内容（无需修改的字段置空即可）<br>
                 <input type="text" size="25" placeholder="账户余额" name="modify_storage_account_balance">
                 <input type="text" size="25" placeholder="利率" name="modify_storage_account_benefit_rate">
-                <input type="text" size="25" placeholder="货币类型" name="modify_storage_account_money_type"> 
+                <input type="text" size="25" placeholder="货币类型" name="modify_storage_account_money_type"><br> 
                 <input type="submit" name="modify_storage_account" value="修改储蓄账户">
             </form>
         </li>
@@ -87,7 +87,7 @@
                 <input type="text" size="25" placeholder="支票账号" name="modify_check_account_account_id" required="required">
                 输入修改内容（无需修改的字段置空即可）<br>
                 <input type="text" size="25" placeholder="账户余额" name="modify_check_account_balance">
-                <input type="text" size="25" placeholder="透支额度" name="modify_storage_account_credit_line">  
+                <input type="text" size="25" placeholder="透支额度" name="modify_storage_account_credit_line"><br>
                 <input type="submit" name="modify_check_account" value="修改支票账户">
             </form>
         </li>
@@ -97,19 +97,19 @@
             <form  action="account_submit/" method="post" >
                 {% csrf_token %}
                 <input type="text" size="25" placeholder="账号" name="migration_account_account_id" required="required">
-                <input type="text" size="25" placeholder="支行名称" name="migration_account_sb_name" required="required">
+                <input type="text" size="25" placeholder="支行名称" name="migration_account_sb_name" required="required"><br>
                 <input type="submit" name="migration_account" value="迁移账户">
             </form>
         </li>
         <br>
     </ul>
 </div>
-
+<br>
 <ul>
-    <li><h4 style="color:#66ccff"> <a href="/bankServer/" style="color:#39C5BB"> 主页面 </a> </h4></l1>
-    <li><h4 style="color:#66ccff"> <a href="/bankServer/loan_management/" style="color:#39C5BB"> 贷款管理 </a> </h4></l1>
-    <li><h4 style="color:#66ccff"> <a href="/bankServer/client_management/" style="color:#39C5BB"> 客户管理 </a> </h4></l1> 
-    <li><h4 style="color:#66ccff"> <a href="/bankServer/statistic_management/" style="color:#39C5BB"> 业务统计 </a> </h4></l1> 
+    <li><h3 style="color:#66ccff"> <a href="/bankServer/" style="color:#39C5BB"> 主页面 </a> </h3></l1>
+    <li><h3 style="color:#66ccff"> <a href="/bankServer/loan_management/" style="color:#39C5BB"> 贷款管理 </a> </h3></l1>
+    <li><h3 style="color:#66ccff"> <a href="/bankServer/client_management/" style="color:#39C5BB"> 客户管理 </a> </h3></l1> 
+    <li><h3 style="color:#66ccff"> <a href="/bankServer/statistic_management/" style="color:#39C5BB"> 业务统计 </a> </h3></l1> 
 </ul>
 
 </body> 

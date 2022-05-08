@@ -36,7 +36,7 @@
                 <input type="text" size="25" placeholder="联系人姓名" name="create_client_connector_name" required="required">
                 <input type="text" size="25" placeholder="联系人电话" name="create_client_connector_pn" required="required">   
                 <input type="text" size="25" placeholder="联系人Email" name="create_client_connector_email" required="required">  
-                <input type="text" size="25" placeholder="关系" name="create_client_relationship">                  
+                <input type="text" size="25" placeholder="关系" name="create_client_relationship"> <br>                 
                 <input type="submit" name="create_client" value="创建客户">
             </form>
         </li>
@@ -46,7 +46,7 @@
             <form  action="client_submit/" method="post" >
                 {% csrf_token %}
                 指定被删除的客户<br>
-                <input type="text" size="25" placeholder="客户身份证" name="del_client_client_id" required="required">          
+                <input type="text" size="25" placeholder="客户身份证" name="del_client_client_id" required="required">  <br>        
                 <input type="submit" name="del_client" value="删除客户">
             </form>
         </li>
@@ -63,7 +63,7 @@
                 <input type="text" size="25" placeholder="联系人姓名" name="modify_client_connector_name">
                 <input type="text" size="25" placeholder="联系人电话" name="modify_client_connector_pn">   
                 <input type="text" size="25" placeholder="联系人Email" name="modify_client_connector_email">  
-                <input type="text" size="25" placeholder="关系" name="modify_client_relationship">                  
+                <input type="text" size="25" placeholder="关系" name="modify_client_relationship"><br>        
                 <input type="submit" name="modify_client" value="修改客户信息">
             </form>
         </li>
@@ -97,10 +97,10 @@
 </div>
 
 <ul>
-    <li><h4 style="color:#66ccff"> <a href="/bankServer/" style="color:#39C5BB"> 主页面 </a> </h4></l1>
-    <li><h4 style="color:#66ccff"> <a href="/bankServer/loan_management/" style="color:#39C5BB"> 贷款管理 </a> </h4></l1>
-    <li><h4 style="color:#66ccff"> <a href="/bankServer/account_management/" style="color:#39C5BB"> 账户管理 </a> </h4></l1> 
-    <li><h4 style="color:#66ccff"> <a href="/bankServer/statistic_management/" style="color:#39C5BB"> 业务统计 </a> </h4></l1> 
+    <li><h3 style="color:#66ccff"> <a href="/bankServer/" style="color:#39C5BB"> 主页面 </a> </h3></l1>
+    <li><h3 style="color:#66ccff"> <a href="/bankServer/loan_management/" style="color:#39C5BB"> 贷款管理 </a> </h3></l1>
+    <li><h3 style="color:#66ccff"> <a href="/bankServer/account_management/" style="color:#39C5BB"> 账户管理 </a> </h3></l1> 
+    <li><h3 style="color:#66ccff"> <a href="/bankServer/statistic_management/" style="color:#39C5BB"> 业务统计 </a> </h3></l1> 
 </ul>
 
 </body> 
