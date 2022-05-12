@@ -81,7 +81,7 @@
                 指定需要修改的储蓄账户<br>
                 <input type="text" size="25" placeholder="客户身份证" name="modify_storage_account_client_id" required="required">
                 <input type="text" size="25" placeholder="储蓄账号" name="modify_storage_account_account_id" required="required">
-                输入修改内容（无需修改的字段置空即可）<br>
+                <br>输入修改内容（无需修改的字段置空即可）<br>
                 <input type="text" size="25" placeholder="账户余额" name="modify_storage_account_balance">
                 <input type="text" size="25" placeholder="利率" name="modify_storage_account_benefit_rate">
                 <input type="text" size="25" placeholder="货币类型" name="modify_storage_account_money_type"><br> 
@@ -90,13 +90,13 @@
         </li>
         <br>
         <li>
-            <h> 支票账户修改 </h> (无需修改的部分置空即可)
+            <h> 支票账户修改 </h>
             <form  action="account_submit/" method="post" >
                 {% csrf_token %}
-                指定需要修改的储蓄账户<br>
+                指定需要修改的支票账户<br>
                 <input type="text" size="25" placeholder="客户身份证" name="modify_check_account_client_id" required="required">
                 <input type="text" size="25" placeholder="支票账号" name="modify_check_account_account_id" required="required">
-                输入修改内容（无需修改的字段置空即可）<br>
+                <br>输入修改内容（无需修改的字段置空即可）<br>
                 <input type="text" size="25" placeholder="账户余额" name="modify_check_account_balance">
                 <input type="text" size="25" placeholder="透支额度" name="modify_storage_account_credit_line"><br>
                 <input type="submit" name="modify_check_account" value="修改支票账户">
