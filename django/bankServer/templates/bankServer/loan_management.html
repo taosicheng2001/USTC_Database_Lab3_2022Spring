@@ -48,6 +48,16 @@
         </li>
         <br>
         <li>
+            <h> 添加贷款拥有者 </h>
+            <form  action="loan_submit/" method="post" >
+                {% csrf_token %}
+                <input type="text" size="25" placeholder="客户身份证" name="append_ownloan_client_id" required="required">
+                <input type="text" size="25" placeholder="贷款号" name="append_ownloan_loan_id" required="required"><br>        
+                <input type="submit" name="append_ownloan" value="添加贷款拥有者">
+            </form>
+        </li>
+        <br>
+        <li>
             <h> 贷款删除 </h>
             <form  action="loan_submit/" method="post" >
                 {% csrf_token %}

@@ -15,6 +15,7 @@ from .models import Client
 from .mytools import my_unwrap,nullcheck
 from django.db import connection
 from django.urls import reverse
+from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 
@@ -112,6 +113,18 @@ def loan_submit(request):
         else:
             print("Not Make_Loan")
 
+        # try append_ownloan
+        append_ownloan = request.POST.get("append_ownloan")
+        if(append_ownloan == "添加贷款拥有者"):
+            client_id = request.POST.get("append_ownloan_client_id")
+            loan_id = request.POST.get("append_ownloan_loan_id")
+            params.append(client_id)
+            params.append(loan_id)
+            action = "Append_Ownloan"
+            print(params)
+        else:
+            print("Not Append_Ownloan")
+
         # try del_loan
         del_loan = request.POST.get("del_loan")
         if(del_loan == "删除贷款"):
@@ -172,8 +185,6 @@ def account_submit(request):
                 sql_string = "Select * from  Own_Account,Accounts,Check_Account Where Own_Account.account_id = Accounts.account_id and Accounts.account_id = Check_Account.account_id and Accounts.account_id="+account_id
             return HttpResponseRedirect(reverse('sql_search',args=(sql_string,)))
 
-
-
         # try create_storage_account
         create_storage_account = request.POST.get("create_storage_account")
         if(create_storage_account == "创建储蓄账户"):
@@ -209,6 +220,19 @@ def account_submit(request):
             action = "Create_Check_Account"
         else:
             print("Not Create_Check_Account")
+
+        # try append_ownaccount
+        append_ownaccount = request.POST.get("append_ownaccount")
+        if(append_ownaccount == "添加账户拥有者"):
+            client_id = request.POST.get("append_ownaccount_client_id")
+            account_id = request.POST.get("append_ownaccount_account_id")
+            append_date = request.POST.get("append_ownaccount_append_date")
+            params.append(client_id)
+            params.append(account_id)
+            params.append(append_date)
+            action = "Append_OwnAccount"
+        else:
+            print("Not Append_OwnAccount")
 
         # try del_account
         del_account = request.POST.get("del_account")

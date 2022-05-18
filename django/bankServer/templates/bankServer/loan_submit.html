@@ -40,6 +40,24 @@
                 }
             }
 
+            if(url == "Append_Ownloan")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Append_OwnLoan请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="用户或贷款未找到！";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                        break;
+                    case 3:
+                        document.getElementById("promote").innerHTML="需要添加的贷款拥有关系已经存在！";
+                        break;
+                }
+            }
             if(url == "Del_Loan")
             {
                 switch(state)

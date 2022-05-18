@@ -65,6 +65,17 @@
         </li>
         <br>
         <li>
+            <h> 添加账户拥有者 </h>
+            <form  action="account_submit/" method="post" >
+                {% csrf_token %}
+                <input type="text" size="25" placeholder="客户身份证" name="append_ownaccount_client_id" required="required">
+                <input type="text" size="25" placeholder="账户号" name="append_ownaccount_account_id" required="required">
+                <input type="date" size="25" placeholder="添加时间" name="append_ownaccount_append_date" required="required"><br>            
+                <input type="submit" name="append_ownaccount" value="添加账户拥有者">
+            </form>
+        </li>
+        <br>
+        <li>
             <h> 账户删除 </h> 
             <form  action="account_submit/" method="post" >
                 {% csrf_token %}

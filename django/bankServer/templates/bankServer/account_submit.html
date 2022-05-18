@@ -61,7 +61,27 @@
                         break;
                 }
             }
-
+            if(url == "Append_OwnAccount")
+            {
+                switch(state)
+                {
+                    case 0:
+                        document.getElementById("promote").innerHTML="您的Append_OwnAccount请求已成功执行!";
+                        break;
+                    case 1:
+                        document.getElementById("promote").innerHTML="用户或账户未找到！";
+                        break;                
+                    case 2:
+                        document.getElementById("promote").innerHTML="SQL 错误！请检查主键约束是否满足！";
+                        break;
+                    case 3:
+                        document.getElementById("promote").innerHTML="违反账号数量要求！请检查是否在此支行拥有该类账户！";
+                        break;
+                    case 4:
+                        document.getElementById("promote").innerHTML="需要添加的账户拥有关系已经存在！";
+                        break;
+                }
+            }
             if(url == "Del_Account")
             {
                 switch(state)
